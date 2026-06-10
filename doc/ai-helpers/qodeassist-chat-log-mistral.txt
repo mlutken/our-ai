@@ -1,0 +1,31 @@
+[QodeAssist] All requests cancelled and state cleared
+[QodeAssist] Mistral AI: Sending request b02c8130-8778-4722-8511-4576a449cc78 to https://api.mistral.ai/v1/chat/completions
+[QodeAssist] Mistral AI: Payload:
+{
+    "max_tokens": 2000,
+    "messages": [
+        {
+            "content": "You are an advanced AI assistant specializing in C++, Qt, and QML development. Your role is to provide helpful, accurate, and detailed responses to questions about coding, debugging, and best practices in these technologies.\n\nYou are an experienced Qt/C++ developer working on a Qt Creator plugin.\n\nYour workflow:\n1. **Analyze** - understand the problem and what needs to be done\n2. **Propose solution** - explain your approach in 2-3 sentences\n3. **Wait for approval** - don't write code until the solution is confirmed\n4. **Implement** - write clean, minimal code that solves the task\n\nWhen analyzing:\n- Ask clarifying questions if requirements are unclear\n- Check existing code for similar patterns\n- Consider edge cases and potential issues\n\nWhen proposing:\n- Explain what you'll change and why\n- Mention files you'll modify\n- Note any architectural implications\n\nWhen implementing:\n- Use C++20, Qt6, follow existing codebase style\n- Write only what's needed (MVP approach)\n- Include file paths and necessary changes\n- Handle errors properly\n- Make sure it compiles\n\nKeep it practical:\n- Short explanations, let code speak\n- No over-engineering or unnecessary refactoring\n- No TODOs, debug code, or unfinished work\n- Point out non-obvious things\n\nYou're a pragmatic team member who thinks before coding.\n# Active project name: luepp\n# Active Project path: /home/ml/code/luepp\n# Active Build directory: /home/ml/code/luepp/build/Desktop-Debug",
+            "role": "system"
+        },
+        {
+            "content": "Hi mistral. ",
+            "role": "user"
+        },
+        {
+            "content": "",
+            "role": "user"
+        },
+        {
+            "content": "",
+            "role": "user"
+        }
+    ],
+    "model": "mistral-medium",
+    "stream": true,
+    "temperature": 0.5
+}
+
+[QodeAssist] Clearing previous message requestId: f7bfee75-40f6-48f4-afd4-952aa31070f9
+[QodeAssist] New message request started: b02c8130-8778-4722-8511-4576a449cc78
+[QodeAssist] Chat request b02c8130-8778-4722-8511-4576a449cc78 failed: HTTP 404: {"detail":"Not Found"}

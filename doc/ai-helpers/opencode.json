@@ -1,0 +1,36 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "baseURL": "https://api.anthropic.com/v1"
+      }
+    },
+    "mistral": {
+      "options": {
+        "baseURL": "https://api.mistral.ai/v1",
+        "apiKey": "x1a4DGf1LgrTxsprVc1PfcJaQLqvggwm",
+      }
+    },
+    "vllm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "vLLM (local)",
+      "options": {
+        "baseURL": "http://localhost:8000/v1"
+      },
+      "models": {
+        "Qwen/Qwen2-1.5B": {
+          "name": "vLLM:Qwen2-1.5B",
+          "max_tokens": 20000,
+          "limit": {
+            "context": 16384,
+            "output": 4096
+          }
+        }
+      }
+    }
+  },
+  "model": "vllm/Qwen/Qwen2-1.5B",
+  "small_model": "vllm/Qwen/Qwen2-1.5B"
+}
+
