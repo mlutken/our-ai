@@ -1,13 +1,17 @@
 #!/bin/bash
-ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+REPO_ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
 
 # Default values
+CONFIG_NAME="standard"
 ENV_FILE=""
 RE_INSTALL="n"
 
 # Define the usage message
 usage() {
     echo "Options:"
+    echo "  -c=|--config=[${CONFIG_NAME}]"
+    echo "    Configuration name to use. See Config files in ${REPO_ROOT_DIR}/config directory!"
+    echo " "
     echo "  -e=|--env=[${ENV_FILE}]"
     echo "    Environment file to use."
     echo " "
@@ -20,8 +24,17 @@ usage() {
     exit 1
 }
 
-setup_librechat() {
 
+install_librechat() {
+    echo "Installing LibreChat ..."
+    cd ${REPO_ROOT_DIR}/3rdparty
+    git clone https://github.com/danny-avila/LibreChat.git
+    cd LibreChat
+    cp .env.example .env
+    cp ${REPO_ROOT_DIR}/config/LibreChat/base/* .
+    cp ${REPO_ROOT_DIR}/config/LibreChat/${CONFIG_NAME}/* .
+    docker compose up -d
+    cd ${REPO_ROOT_DIR}
 }
 
 
@@ -66,6 +79,7 @@ while true; do
 done
 
 
+echo "REPO_ROOT_DIR       : '${REPO_ROOT_DIR}'"
 echo "ENV_FILE            : '${ENV_FILE}'"
 echo "RE_INSTALL          : '${RE_INSTALL}'"
 

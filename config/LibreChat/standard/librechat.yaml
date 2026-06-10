@@ -1,0 +1,32 @@
+# For more information, see the Configuration Guide:
+# https://www.librechat.ai/docs/configuration/librechat_yaml
+
+# Configuration version (required)
+version: 1.3.12
+
+# This setting caches the config file for faster loading across app lifecycle
+cache: true
+
+endpoints:
+  custom:
+    - name: "Mistral"
+      apiKey: "${MISTRAL_API_KEY}"
+      baseURL: "https://api.mistral.ai/v1"
+      models:
+        default: ["mistral-tiny", "mistral-small", "mistral-medium", "mistral -large-latest"]
+        fetch: true
+      titleConvo: true
+      titleModel: "mistral-tiny"
+      modelDisplayLabel: "Mistral"
+      dropParams: ["stop", "user", "frequency_penalty", "presence_penalty"]
+    - name: "vLLM"
+      apiKey: "dummy-key"
+      # baseURL: "http://localhost:8000/v1"
+      # baseURL: "http://172.18.0.1:8000/v1"
+      baseURL: "http://host.docker.internal:8000/v1"
+      models:
+        default: ["default", "Qwen/Qwen2-1.5B", "Qwen/Qwen3-0.6B"]
+        fetch: false
+      titleConvo: true
+      titleModel: "Qwen/Qwen2-1.5B"
+      modelDisplayLabel: "vLLM"
