@@ -25,19 +25,6 @@ usage() {
 }
 
 
-install_librechat() {
-    echo "Installing LibreChat ..."
-    cd ${REPO_ROOT_DIR}/3rdparty
-    git clone https://github.com/danny-avila/LibreChat.git
-    cd LibreChat
-    cp .env.example .env
-    cp ${REPO_ROOT_DIR}/config/LibreChat/base/* .
-    cp ${REPO_ROOT_DIR}/config/LibreChat/${CONFIG_NAME}/* .
-    docker compose up -d
-    cd ${REPO_ROOT_DIR}
-}
-
-
 # Parse options using getopt
 # The first argument to getopt is the argument string (e.g., "hp:n:")
 # The second argument is the list of long options (e.g., "help,port:,name:")
@@ -83,10 +70,48 @@ echo "REPO_ROOT_DIR       : '${REPO_ROOT_DIR}'"
 echo "ENV_FILE            : '${ENV_FILE}'"
 echo "RE_INSTALL          : '${RE_INSTALL}'"
 
+# See: https://www.librechat.ai/docs/local/docker
+#      https://www.librechat.ai/docs/remote/docker_linux
+install_librechat() {
+    if [ -d ${REPO_ROOT_DIR}/3rdparty/LibreChat ]; then
+        cd ${REPO_ROOT_DIR}/3rdparty/LibreChat && docker compose down ;  cd ${REPO_ROOT_DIR}
+    fi
+
+    if [ "y" == "${RE_INSTALL}" ]; then
+        echo "Removing LibreChat ..."
+        rm -rf ${REPO_ROOT_DIR}/3rdparty/LibreChat
+    fi
+
+    if [ ! -d ${REPO_ROOT_DIR}/3rdparty/LibreChat ]; then
+        echo "Installing LibreChat ..."
+        cd ${REPO_ROOT_DIR}/3rdparty
+        git clone https://github.com/danny-avila/LibreChat.git
+
+    fi
+    echo "Updating LibreChat config ..."
+    cd ${REPO_ROOT_DIR}/3rdparty/LibreChat
+    cp .env.example .env
+    cp ${REPO_ROOT_DIR}/config/LibreChat/base/* .
+    cp ${REPO_ROOT_DIR}/config/LibreChat/${CONFIG_NAME}/* .
+    docker compose down
+    docker compose up -d
+    cd ${REPO_ROOT_DIR}
+}
+
+build_docker_images() {
+    ${REPO_ROOT_DIR}/docker-images/vllm-default/build-as-latest.sh
+    cd ${REPO_ROOT_DIR}
+}
+
+
 if [ "y" == "${RE_INSTALL}" ]
 then
     echo "Doing a complete reinstall...."
 fi
+
+# install_librechat
+build_docker_images
+
 
 
 

@@ -21,8 +21,6 @@ endpoints:
       dropParams: ["stop", "user", "frequency_penalty", "presence_penalty"]
     - name: "vLLM"
       apiKey: "dummy-key"
-      # baseURL: "http://localhost:8000/v1"
-      # baseURL: "http://172.18.0.1:8000/v1"
       baseURL: "http://host.docker.internal:8000/v1"
       models:
         default: ["default", "Qwen/Qwen2-1.5B", "Qwen/Qwen3-0.6B"]
