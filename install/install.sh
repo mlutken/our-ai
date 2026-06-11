@@ -98,6 +98,24 @@ install_librechat() {
     cd ${REPO_ROOT_DIR}
 }
 
+install_docker() {
+    if ! command -v docker &> /dev/null; then
+        echo "Installing docker "
+        sudo apt update
+        sudo apt install -y apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release
+
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt update
+
+        sudo apt install -y docker-ce
+        sudo usermod -aG docker $USER
+    else
+        echo "Docker already installed!"
+    fi
+}
+
+
 build_docker_images() {
     ${REPO_ROOT_DIR}/docker-images/vllm-default/build-as-latest.sh
     cd ${REPO_ROOT_DIR}
@@ -109,8 +127,9 @@ then
     echo "Doing a complete reinstall...."
 fi
 
-# install_librechat
+install_docker
 build_docker_images
+# install_librechat
 
 
 
